@@ -109,12 +109,13 @@ body {
 			<div id="status-notice"></div>
 		</div>
 
-		<script>
+		<!-- schoolyard-engine-loader -->
+<script>
 const originalFetch = window.fetch.bind(window);
 window.fetch = async function(input, init) {
  const url = typeof input === 'string' ? input : input.url;
  if (new URL(url, location.href).pathname.endsWith('/index.wasm')) {
-  const parts = await Promise.all(['engine-0.bin', 'engine-1.bin'].map(async name => {
+  const parts = await Promise.all(["engine-0.bin", "engine-1.bin"].map(async name => {
    const response = await originalFetch(new URL(name, location.href), init);
    if (!response.ok) throw new Error('Engine download failed: ' + response.status);
    return response.arrayBuffer();
@@ -124,9 +125,10 @@ window.fetch = async function(input, init) {
  return originalFetch(input, init);
 };
 </script>
+<!-- /schoolyard-engine-loader -->
 <script src="index.js"></script>
 		<script>
-const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":17439880,"index.wasm":39514754},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4};
+const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":23411676,"index.wasm":39514754},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4};
 const GODOT_THREADS_ENABLED = false;
 const engine = new Engine(GODOT_CONFIG);
 
