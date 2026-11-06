@@ -114,6 +114,7 @@ body {
 const originalFetch = window.fetch.bind(window);
 window.fetch = async function(input, init) {
  const url = typeof input === 'string' ? input : input.url;
+ if (new URL(url, location.href).pathname.endsWith('/index.pck')) return originalFetch(new URL(url, location.href).href + '?v=012cc58', init);
  if (new URL(url, location.href).pathname.endsWith('/index.wasm')) {
   const parts = await Promise.all(["engine-0.bin", "engine-1.bin"].map(async name => {
    const response = await originalFetch(new URL(name, location.href), init);
