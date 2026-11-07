@@ -106,7 +106,11 @@ body {
 		</noscript>
 
 		<div id="status">
-			<img id="status-splash" class="show-image--true fullsize--true use-filter--true" src="index.png" alt="">
+        <div id="schoolyard-load-caption" style="position:absolute;inset:auto 4% 20%;z-index:1;text-align:center;background:#f4ecd8;color:#315944;padding:14px;border:3px solid #c7a76a;font:16px system-ui,sans-serif">
+            <strong>Dural Public School: Schoolyard Defense</strong><br>
+            Loading the schoolyard. Try Science poison against shields.
+        </div>
+			<img id="status-splash" class="show-image--true fullsize--true use-filter--true" src="web-loading.jpg" alt="">
 			<progress id="status-progress"></progress>
 			<div id="status-notice"></div>
 		</div>
@@ -116,7 +120,7 @@ body {
 const originalFetch = window.fetch.bind(window);
 window.fetch = async function(input, init) {
  const url = typeof input === 'string' ? input : input.url;
- if (new URL(url, location.href).pathname.endsWith('/index.pck')) return originalFetch(new URL(url, location.href).href + '?v=610a61e65cde', init);
+ if (new URL(url, location.href).pathname.endsWith('/index.pck')) return originalFetch(new URL(url, location.href).href + '?v=ba4b20c21cb6', init);
  if (new URL(url, location.href).pathname.endsWith('/index.wasm')) {
   const parts = await Promise.all(["engine-0.bin", "engine-1.bin"].map(async name => {
    const response = await originalFetch(new URL(name, location.href), init);
@@ -131,7 +135,7 @@ window.fetch = async function(input, init) {
 <!-- /schoolyard-engine-loader -->
 <script src="index.js"></script>
 		<script>
-const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":24529860,"index.wasm":39514754},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4};
+const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":25486500,"index.wasm":39514754},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4};
 const GODOT_THREADS_ENABLED = false;
 const engine = new Engine(GODOT_CONFIG);
 
