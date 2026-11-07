@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0">
 		<title>Dural Public School: Schoolyard Defense by Daniel Luo</title>
-		<meta name="description" content="Play Dural Public School Schoolyard Defense by Daniel Luo, a free browser tower defence game. Build a team of teachers and defend five school maps from goblins.">
+		<meta name="description" content="Play Dural Public School Schoolyard Defense by Daniel Luo, a free browser tower defence game. Build a team of teachers and defend seven school maps from goblins.">
 		<link rel="canonical" href="https://postup17.github.io/daniel-luo-defence/">
 		<style>
 html, body, #canvas {
@@ -98,7 +98,7 @@ body {
 	</head>
 	<body>
 		<canvas id="canvas">
-			Dural Public School Schoolyard Defense by Daniel Luo. Build a team of teachers and defend five school maps from goblins.
+			Dural Public School Schoolyard Defense by Daniel Luo. Build a team of teachers and defend seven school maps from goblins.
 		</canvas>
 
 		<noscript>
@@ -120,7 +120,16 @@ body {
 const originalFetch = window.fetch.bind(window);
 window.fetch = async function(input, init) {
  const url = typeof input === 'string' ? input : input.url;
- if (new URL(url, location.href).pathname.endsWith('/index.pck')) return originalFetch(new URL(url, location.href).href + '?v=ba4b20c21cb6', init);
+ if (new URL(url, location.href).pathname.endsWith('/index.pck')) {
+  const files = ["game-0.bin", "game-1.bin"];
+  if (!files.length) return originalFetch(new URL(url, location.href).href + '?v=6437f13519d8', init);
+  const chunks = await Promise.all(files.map(async name => {
+   const response = await originalFetch(new URL(name + '?v=6437f13519d8', location.href), init);
+   if (!response.ok) throw new Error('Game download failed: ' + response.status);
+   return response.arrayBuffer();
+  }));
+  return new Response(new Blob(chunks), {headers: {'Content-Length':'26671344'}});
+ }
  if (new URL(url, location.href).pathname.endsWith('/index.wasm')) {
   const parts = await Promise.all(["engine-0.bin", "engine-1.bin"].map(async name => {
    const response = await originalFetch(new URL(name, location.href), init);
@@ -135,7 +144,7 @@ window.fetch = async function(input, init) {
 <!-- /schoolyard-engine-loader -->
 <script src="index.js"></script>
 		<script>
-const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":25486500,"index.wasm":39514754},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4};
+const GODOT_CONFIG = {"args":[],"canvasResizePolicy":2,"emscriptenPoolSize":8,"ensureCrossOriginIsolationHeaders":true,"executable":"index","experimentalVK":false,"fileSizes":{"index.pck":26671344,"index.wasm":39514754},"focusCanvas":true,"gdextensionLibs":[],"godotPoolSize":4};
 const GODOT_THREADS_ENABLED = false;
 const engine = new Engine(GODOT_CONFIG);
 
