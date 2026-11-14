@@ -122,7 +122,7 @@ window.fetch = async function(input, init) {
  const url = typeof input === 'string' ? input : input.url;
  if (new URL(url, location.href).pathname.endsWith('/index.pck')) {
   const files = [];
-  if (!files.length) return originalFetch(new URL(url, location.href).href + '?v=ee7892fdbb20', init);
+  if (!files.length) return originalFetch(new URL(url, location.href).href + '?v=4595850a1b3f', init);
   const chunks = await Promise.all(files.map(async name => {
    const response = await originalFetch(new URL(name + '?v=04d9119ab11f', location.href), init);
    if (!response.ok) throw new Error('Game download failed: ' + response.status);
